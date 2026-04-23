@@ -1,4 +1,3 @@
-
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -15,8 +14,8 @@ spec:
         app: khbouych-playground
     spec:
       containers:
-      - name: playground
-        image: khbouych42/playground:v1
+      - name: playground-container
+        image: khbouych42/playground:v1 # <--- During defense, you khbouychl change this to v2
         ports:
         - containerPort: 8888
 ---
@@ -30,6 +29,6 @@ spec:
     app: khbouych-playground
   ports:
     - protocol: TCP
-      port: 8888
-      targetPort: 8888
-  type: LoadBalancer 
+      port: 8888        # Port exposed by the Service
+      targetPort: 8888  # Port the app is listening on inside the container
+  type: LoadBalancer    # This allows K3d to map it to your iMac's port 8888
